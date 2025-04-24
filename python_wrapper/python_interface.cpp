@@ -57,13 +57,14 @@ PYBIND11_MODULE(robot_interface, m) {
       .def("PowerProtect", &Safety::PowerProtect)
       .def("PositionProtect", &Safety::PositionProtect);
 
-  // py::class_<Loop>(m, "Loop")
-  //     .def(py::init<std::string, float, int>())
-  //     .def("functionCB", &Loop::functionCB);
+  py::class_<Loop>(m, "Loop")
+     // .def(py::init<std::string, float, int>())
+     .def("start", &Loop::start)
+     .def("shutdown", &Loop::shutdown);
 
-  // py::class_<LoopFunc, Loop>(m, "LoopFunc")
-  //     .def(py::init<std::string, float, const Callback&>());
-  //     // .def(py::init<std::string, float, const boost::function<void ()>& >());
+  py::class_<LoopFunc, Loop>(m, "LoopFunc")
+     .def(py::init<std::string, float, const Callback&>())
+     .def(py::init<std::string, float, int, const Callback&>());
 
   py::class_<BmsCmd>(m, "BmsCmd")
       .def(py::init<>())
